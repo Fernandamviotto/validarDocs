@@ -17,21 +17,25 @@ supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 class ValidadorDocumentos:
     @staticmethod
     def validar_cpf(cpf):
-        # Validar um CPF
-        cpf = re.sub(r'[^0-9]', '', str(cpf or ''))
-        if len(cpf) != 11 or cpf == cpf[0] * 11:
+    # Converte qualquer entrada para string e remove caracteres que não são dígitos
+        cpf_str = str(cpf or '')
+        cpf_str = re.sub(r'\D', '', cpf_str)
+
+    # CPF deve ter 11 dígitos e não pode ter todos os dígitos iguais
+        if len(cpf_str) != 11 or cpf_str == cpf_str[0] * 11:
             return False
-        soma = 0
-        for i in range(9):
-            soma += int(cpf[i]) * (10 - i)
-        resto = 11 - (soma % 11)
-        digito1 = resto if resto < 10 else 0
-        soma = 0
-        for i in range(10):
-            soma += int(cpf[i]) * (11 - i)
-        resto = 11 - (soma % 11)
-        digito2 = resto if resto < 10 else 0
-        return int(cpf[9]) == digito1 and int(cpf[10]) == digito2
+
+    # Valida os dois dígitos verificadores
+        soma = sum(int(cpf_str[i]) * (10 - i) for i in range(9))
+        digito1 = (11 - (soma % 11))
+        digito1 = digito1 if digito1 < 10 else 0
+
+        soma = sum(int(cpf_str[i]) * (11 - i) for i in range(10))
+        digito2 = (11 - (soma % 11))
+        digito2 = digito2 if digito2 < 10 else 0
+
+        return int(cpf_str[9]) == digito1 and int(cpf_str[10]) == digito2
+
 
     @staticmethod
     def validar_cnpj(cnpj):
@@ -103,9 +107,9 @@ def search_client():
     search_term = (request.form.get('searchTerm') or '').strip().lower()
     search_type = (request.form.get('searchType') or '').strip().lower()
 
-
     if search_type in ['cpf', 'cnpj', 'rg', 'telefone']:
         search_term = re.sub(r'\D', '', search_term)
+
     try:
         response = supabase.table('clientes').select('*').execute()
         clientes_do_banco = response.data 
@@ -121,25 +125,34 @@ def search_client():
         if search_type == 'nome' and ValidadorDocumentos.validar_nome(client.get('nome', '')):
             if search_term in client.get('nome', '').lower():
                 is_valid = True
-        elif search_type == 'cpf' and ValidadorDocumentos.validar_cpf(client.get('cpf', '')):
+
+        elif search_type == 'cpf':
+            # Remove caracteres não numéricos do CPF
             stored_cpf = str(client.get('cpf') or '')
             stored_cpf = re.sub(r'\D', '', stored_cpf)
-            if search_term == stored_cpf:
+            if ValidadorDocumentos.validar_cpf(stored_cpf) and search_term == stored_cpf:
                 is_valid = True
-        elif search_type == 'cnpj' and ValidadorDocumentos.validar_cnpj(client.get('cnpj', '')):
-            stored_cnpj = re.sub(r'\D', '', client.get('cnpj', ''))
-            if search_term == stored_cnpj:
+
+        elif search_type == 'cnpj':
+            stored_cnpj = str(client.get('cnpj') or '')
+            stored_cnpj = re.sub(r'\D', '', stored_cnpj)
+            if ValidadorDocumentos.validar_cnpj(stored_cnpj) and search_term == stored_cnpj:
                 is_valid = True
+
         elif search_type == 'email' and ValidadorDocumentos.validar_email(client.get('email', '')):
             if search_term in client.get('email', '').lower():
                 is_valid = True
-        elif search_type == 'telefone' and ValidadorDocumentos.validar_telefone(client.get('telefone', '')):
-            stored_telefone = re.sub(r'\D', '', client.get('telefone', ''))
-            if search_term == stored_telefone:
+
+        elif search_type == 'telefone':
+            stored_telefone = str(client.get('telefone') or '')
+            stored_telefone = re.sub(r'\D', '', stored_telefone)
+            if ValidadorDocumentos.validar_telefone(stored_telefone) and search_term == stored_telefone:
                 is_valid = True
-        elif search_type == 'rg' and ValidadorDocumentos.validar_rg(client.get('rg', '')):
-            stored_rg = re.sub(r'\D', '', client.get('rg', ''))
-            if search_term == stored_rg:
+
+        elif search_type == 'rg':
+            stored_rg = str(client.get('rg') or '')
+            stored_rg = re.sub(r'\D', '', stored_rg)
+            if ValidadorDocumentos.validar_rg(stored_rg) and search_term == stored_rg:
                 is_valid = True
 
         if is_valid:
