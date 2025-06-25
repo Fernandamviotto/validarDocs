@@ -122,7 +122,8 @@ def search_client():
             if search_term in client.get('nome', '').lower():
                 is_valid = True
         elif search_type == 'cpf' and ValidadorDocumentos.validar_cpf(client.get('cpf', '')):
-            stored_cpf = re.sub(r'\D', '', str(client.get('cpf') or ''))
+            stored_cpf = str(client.get('cpf') or '')
+            stored_cpf = re.sub(r'\D', '', stored_cpf)
             if search_term == stored_cpf:
                 is_valid = True
         elif search_type == 'cnpj' and ValidadorDocumentos.validar_cnpj(client.get('cnpj', '')):
