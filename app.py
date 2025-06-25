@@ -18,7 +18,7 @@ class ValidadorDocumentos:
     @staticmethod
     def validar_cpf(cpf):
         # Validar um CPF
-        cpf = re.sub(r'[^0-9]', '', cpf)
+        cpf = re.sub(r'[^0-9]', '', str(cpf or ''))
         if len(cpf) != 11 or cpf == cpf[0] * 11:
             return False
         soma = 0
@@ -100,8 +100,9 @@ def index():
 
 @app.route('/search', methods=['POST'])
 def search_client():
-    search_term = request.form['searchTerm'].strip().lower()
-    search_type = request.form['searchType'].strip().lower()
+    search_term = (request.form.get('searchTerm') or '').strip().lower()
+    search_type = (request.form.get('searchType') or '').strip().lower()
+
 
     if search_type in ['cpf', 'cnpj', 'rg', 'telefone']:
         search_term = re.sub(r'\D', '', search_term)
@@ -121,7 +122,7 @@ def search_client():
             if search_term in client.get('nome', '').lower():
                 is_valid = True
         elif search_type == 'cpf' and ValidadorDocumentos.validar_cpf(client.get('cpf', '')):
-            stored_cpf = re.sub(r'\D', '', client.get('cpf', ''))
+            stored_cpf = re.sub(r'\D', '', str(client.get('cpf') or ''))
             if search_term == stored_cpf:
                 is_valid = True
         elif search_type == 'cnpj' and ValidadorDocumentos.validar_cnpj(client.get('cnpj', '')):

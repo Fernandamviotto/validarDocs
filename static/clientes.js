@@ -67,7 +67,7 @@ async function performSearch(term, type) {
     displayClients(clients, resultsDiv);
   } catch (error) {
     console.error("Erro ao buscar clientes:", error);
-    resultsDiv.innerHTML = `<p class="no-results error">Ocorreu um erro ao buscar os clientes: ${error.message}. Tente novamente.</p>`;
+    // resultsDiv.innerHTML = `<p class="no-results error">Ocorreu um erro ao buscar os clientes: ${error.message}. Tente novamente.</p>`;
   }
 }
 
