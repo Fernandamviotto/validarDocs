@@ -1,0 +1,54 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+
+# Arquivos de Sistema Operacional
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Ambientes Virtuais
+venv/
+.venv/
+env/
+/htmlcov/
+.tox/
+__pypackages__/
+.Python
+*.pyc
+*.swp
+*.egg
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.pyre/
+.ipynb_checkpoints/
+
+# Flask
+instance/
+
+# Variáveis de Ambiente e Credenciais
+.env
+*.env
+config.py
+credentials.py
+secret_keys.py
+*.key
+*.pem
+
+# Bancos de Dados Locais 
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# Testes
+.pytest_cache/
+
+# IDEs e Editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace

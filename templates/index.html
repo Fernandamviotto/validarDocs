@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Clientes</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Sistema de Clientes</h1>
+
+      <div id="mainSection">
+        <h2>Buscar Cliente</h2>
+        <form class="search-form" id="searchForm">
+          <input
+            type="text"
+            id="searchTerm"
+            name="searchTerm"
+            placeholder="Digite o termo de busca..."
+          />
+          <select id="searchType" name="searchType">
+            <option value="nome">Nome</option>
+            <option value="cpf">CPF</option>
+            <option value="cnpj">CNPJ</option>
+            <option value="email">Email</option>
+            <option value="telefone">Telefone</option>
+            <option value="rg">RG</option>
+          </select>
+          <button type="submit">Buscar</button>
+        </form>
+
+        <div class="action-buttons-container">
+          <button id="showListBtn">Listar Todos os Clientes</button>
+          <button id="showAddFormBtn">Adicionar Novo Cliente</button>
+        </div>
+
+        <div id="results"></div>
+      </div>
+
+      <div id="clientListContainer">
+        <div class="section-header">
+          <button class="back-arrow-button" id="backToListMainBtn">
+            &#8592;
+          </button>
+          <h2>Lista Completa de Clientes</h2>
+        </div>
+        <ul id="clientList"></ul>
+      </div>
+
+      <div id="clientDetailsCard">
+        <h3>Detalhes do Cliente</h3>
+        <div id="detailsContent"></div>
+      </div>
+
+      <div id="addClientFormContainer">
+        <div class="section-header">
+          <button class="back-arrow-button" id="backToAddMainBtn">
+            &#8592;
+          </button>
+          <h2>Adicionar Novo Cliente</h2>
+        </div>
+        <form class="add-client-form" id="addClientForm">
+          <label for="addNome" class="full-width">Nome Completo:</label>
+          <input
+            type="text"
+            id="addNome"
+            name="nome"
+            placeholder="Ex: João Silva"
+            required
+            class="full-width"
+          />
+
+          <label for="addEmail">E-mail:</label>
+          <input
+            type="email"
+            id="addEmail"
+            name="email"
+            placeholder="email@exemplo.com"
+          />
+
+          <label for="addTelefone">Telefone:</label>
+          <input
+            type="tel"
+            id="addTelefone"
+            name="telefone"
+            placeholder="(XX) XXXXX-XXXX"
+          />
+
+          <label for="addCpf">CPF (somente números):</label>
+          <input
+            type="text"
+            id="addCpf"
+            name="cpf"
+            maxlength="11"
+            placeholder="Somente números"
+          />
+
+          <label for="addCnpj">CNPJ (somente números):</label>
+          <input
+            type="text"
+            id="addCnpj"
+            name="cnpj"
+            maxlength="14"
+            placeholder="Somente números"
+          />
+
+          <label for="addRg">RG:</label>
+          <input type="text" id="addRg" name="rg" placeholder="XX.XXX.XXX-X" />
+
+          <label for="addDataEmissaoRg">Data de Emissão RG (DD/MM/AAAA):</label>
+          <input
+            type="text"
+            id="addDataEmissaoRg"
+            name="data_emissao_rg"
+            placeholder="DD/MM/AAAA"
+          />
+
+          <button type="submit">Adicionar Cliente</button>
+          <div
+            id="addClientMessage"
+            class="message"
+            style="display: none"
+          ></div>
+        </form>
+      </div>
+    </div>
+    <script src="clientes.js"></script>
+  </body>
+</html>
