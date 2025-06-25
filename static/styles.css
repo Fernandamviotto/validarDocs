@@ -1,0 +1,247 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #f4f4f4;
+  color: #333;
+}
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+h1,
+h2 {
+  text-align: center;
+  color: #0056b3;
+  margin-bottom: 20px;
+}
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fdfdfd;
+}
+.search-form input[type="text"],
+.search-form select,
+.search-form button {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+.search-form input[type="text"] {
+  flex-grow: 1;
+  min-width: 150px;
+}
+.search-form button {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border: none;
+  flex-shrink: 0;
+}
+.search-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Contêiner para botões de ação */
+.action-buttons-container {
+  text-align: center;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+.action-buttons-container button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  min-width: 180px;
+}
+.action-buttons-container button#showListBtn {
+  background-color: #28a745; /* Verde para Listar */
+  color: white;
+}
+.action-buttons-container button#showListBtn:hover {
+  background-color: #218838;
+}
+.action-buttons-container button#showAddFormBtn {
+  background-color: #6f42c1; /* Roxo para Adicionar */
+  color: white;
+}
+.action-buttons-container button#showAddFormBtn:hover {
+  background-color: #5a3698;
+}
+
+/* voltar (flecha) */
+.back-arrow-button {
+  background: none;
+  border: none;
+  font-size: 2em;
+  color: #666;
+  cursor: pointer;
+  padding: 0 10px;
+  float: left;
+  margin-top: -10px;
+}
+.back-arrow-button:hover {
+  color: #000;
+}
+/* Limpar float */
+.section-header::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#results {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+.client-card {
+  background-color: #e9ecef;
+  border: 1px solid #dee2e6;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  position: relative;
+}
+.client-card p {
+  margin: 5px 0;
+  line-height: 1.5;
+}
+.client-card strong {
+  color: #0056b3;
+}
+.no-results {
+  text-align: center;
+  color: #666;
+  margin-top: 20px;
+}
+
+/* Estilos para a lista de clientes */
+#clientListContainer {
+  margin-top: 20px;
+  padding-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fdfdfd;
+  display: none;
+}
+#clientList {
+  list-style: none;
+  padding: 0;
+  max-height: 400px;
+  overflow-y: auto;
+  border-radius: 4px;
+  background-color: #fcfcfc;
+}
+#clientList li {
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#clientList li:last-child {
+  border-bottom: none;
+}
+#clientList li:hover {
+  background-color: #e2e6ea;
+}
+#clientList li.selected {
+  background-color: #cce5ff;
+  font-weight: bold;
+}
+
+/* Botão de excluir cliente na lista */
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8em;
+  margin-left: 10px;
+  flex-shrink: 0;
+}
+.delete-btn:hover {
+  background-color: #c82333;
+}
+
+/* Estilos para o card de detalhes do cliente */
+#clientDetailsCard {
+  margin-top: 20px;
+  background-color: #d1ecf1;
+  border: 1px solid #bee5eb;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  display: none;
+}
+#clientDetailsCard h3 {
+  color: #0056b3;
+  margin-top: 0;
+  border-bottom: 1px solid #a7d9e2;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+/* Estilos para o formulário de adicionar cliente */
+#addClientFormContainer {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fdfdfd;
+  display: none;
+}
+.add-client-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.add-client-form label {
+  width: 100%;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.add-client-form input {
+  width: calc(50% - 15px);
+  margin-bottom: 10px;
+}
+.add-client-form input.full-width {
+  width: calc(100% - 20px);
+}
+.add-client-form button[type="submit"] {
+  width: 100%;
+  margin-top: 10px;
+}
+.message {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
